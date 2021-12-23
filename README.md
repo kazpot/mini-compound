@@ -1,6 +1,6 @@
 # Mini Compound
 
-Minimum version of Compound protocol
+Minimum version of Compound protocol (only for test)
 
 ## Installation
 
