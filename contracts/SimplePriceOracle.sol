@@ -7,7 +7,8 @@ import "./AggregatorV3Interface.sol";
 contract SimplePriceOracle is PriceOracle {
     mapping(address => uint256) prices;
 
-    AggregatorV3Interface internal priceFeed;
+    AggregatorV3Interface internal eth_usd_priceFeed;
+    AggregatorV3Interface internal usdc_usd_priceFeed;
 
     event PricePosted(
         address asset,
@@ -17,14 +18,22 @@ contract SimplePriceOracle is PriceOracle {
     );
 
     constructor() public {
-        priceFeed = AggregatorV3Interface(
+        eth_usd_priceFeed = AggregatorV3Interface(
             0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
+        );
+        usdc_usd_priceFeed = AggregatorV3Interface(
+            0xa24de01df22b63d23Ebc1882a5E3d4ec0d907bFB
         );
     }
 
-    function _getLatestPrice() internal view returns (int256) {
-        (, int256 price, , , ) = priceFeed.latestRoundData();
-        return price;
+    function _getLatestPrice(CToken cToken) internal view returns (int256) {
+        if (compareStrings(cToken.symbol(), "CEther")) {
+            (, int256 price, , , ) = eth_usd_priceFeed.latestRoundData();
+            return price;
+        } else if (compareStrings(cToken.symbol(), "cUSDC")) {
+            (, int256 price, , , ) = eth_usd_priceFeed.latestRoundData();
+            return price;
+        }
     }
 
     function _getUnderlyingAddress(CToken cToken)
@@ -42,8 +51,7 @@ contract SimplePriceOracle is PriceOracle {
     }
 
     function getUnderlyingPrice(CToken cToken) external view returns (uint256) {
-        address asset = _getUnderlyingAddress(cToken);
-        int256 price = _getLatestPrice();
+        int256 price = _getLatestPrice(cToken);
         require(price >= 0, "price must be positive");
         return uint256(price);
     }
