@@ -1,9 +1,12 @@
+require('dotenv').config();
+
 const Comptroller = artifacts.require("./Comptroller");
 const JumpRateModel = artifacts.require("./JumpRateModel");
 const CEther = artifacts.require("./CEther");
 const CErc20 = artifacts.require("./CErc20");
 
-const ADMIN = "0x2d54e4392ad68d616ce936769abb00f331379c2f";
+
+const ADMIN = process.env.ADMIN_ADDRESS;
 
 module.exports = async (deployer) => {
   deployer.deploy(Comptroller)
