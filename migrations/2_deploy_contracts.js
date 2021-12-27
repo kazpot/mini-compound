@@ -4,9 +4,8 @@ const Comptroller = artifacts.require("./Comptroller");
 const JumpRateModel = artifacts.require("./JumpRateModel");
 const CEther = artifacts.require("./CEther");
 const CErc20 = artifacts.require("./CErc20");
-
-
 const ADMIN = process.env.ADMIN_ADDRESS;
+const FAKE_USDC = process.env.FAKE_USDC_ADDRESS;
 
 module.exports = async (deployer) => {
   deployer.deploy(Comptroller)
