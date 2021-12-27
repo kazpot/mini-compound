@@ -27,7 +27,7 @@ contract CEther is CToken {
         uint8 decimals_,
         address payable admin_
     ) public {
-        // Creator of the contract is admin during initialization
+        // contract creator is admin initially
         admin = msg.sender;
 
         initialize(

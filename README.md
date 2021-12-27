@@ -26,5 +26,5 @@ $ yarn build
 4. Deploy to rinkeby testnet
 
 ```
-$ yarn migrate
+$ yarn deploy:rinkeby
 ```
