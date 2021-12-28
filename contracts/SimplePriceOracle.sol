@@ -31,7 +31,7 @@ contract SimplePriceOracle is PriceOracle {
             (, int256 price, , , ) = eth_usd_priceFeed.latestRoundData();
             return price;
         } else if (compareStrings(cToken.symbol(), "cUSDC")) {
-            (, int256 price, , , ) = eth_usd_priceFeed.latestRoundData();
+            (, int256 price, , , ) = usdc_usd_priceFeed.latestRoundData();
             return price;
         }
     }
